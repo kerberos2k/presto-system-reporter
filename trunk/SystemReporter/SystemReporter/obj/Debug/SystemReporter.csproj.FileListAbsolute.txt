@@ -1,0 +1,16 @@
+F:\SystemReports\SysReporters\SystemReporter\bin\Debug\SystemReporter.exe
+F:\SystemReports\SysReporters\SystemReporter\bin\Debug\SystemReporter.pdb
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\ResolveAssemblyReference.cache
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\SystemReporter.Splash.resources
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\SystemReporter.Properties.Resources.resources
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\SystemReporter.csproj.GenerateResource.Cache
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\SystemReporter.exe
+F:\SystemReports\SysReporters\SystemReporter\obj\Debug\SystemReporter.pdb
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\SystemReporter.exe
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\SystemReporter.pdb
+D:\PROYECTOS\SystemReporter\SystemReporter\bin\Debug\SystemReporter.exe
+D:\PROYECTOS\SystemReporter\SystemReporter\bin\Debug\SystemReporter.pdb
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\ResolveAssemblyReference.cache
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\SystemReporter.Splash.resources
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\SystemReporter.Properties.Resources.resources
+D:\PROYECTOS\SystemReporter\SystemReporter\obj\Debug\SystemReporter.csproj.GenerateResource.Cache
