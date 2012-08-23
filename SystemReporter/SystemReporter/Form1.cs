@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -13,31 +12,81 @@ namespace SystemReporter
 {
     public partial class Splash : Form
     {
-        public ManualResetEvent timerevent;
-        
+        private Boolean _haveError;
+        private Timer _timer;
+        private Boolean _try;
+        private String _sConfigFile;
         public Splash()
         {
+            //inicio formulario
             InitializeComponent();
 
-            timerevent = new ManualResetEvent(false);
+            this._haveError = false;
 
-            System.Threading.Timer timer = new System.Threading.Timer(
-                new TimerCallback(this.TimerMethod),
-                null,
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(1)
-            );
-
+            //creo aplicacion y muestro la version
             SysReporter mySysReporter = new SysReporter();
-
             this.versionLabel.Text = "version " + mySysReporter.getVersion;
+            MessageBox.Show("INFOREST.INI" + mySysReporter.cypherString("INFOREST.INI", true));
+            MessageBox.Show("ALMACEN.INI" + mySysReporter.cypherString("ALMACEN.INI", true));
+            MessageBox.Show("USUARIO.INI" + mySysReporter.cypherString("USUARIO.INI", true));
+
+            //inicio cuenta para cerrar formulario
+            this._timer = new Timer();
+            this._timer.Interval = 1500; //1.5 segundos carga
+            this._timer.Enabled = true;
+            this._timer.Tick += new EventHandler(this.TimerMethod);
+
+            //parametros, obtener ruta y leer configuracion si existe
+            this._sConfigFile = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(typeof(Splash)).CodeBase)+"\\SysReporter.ini";
+            this._sConfigFile = this._sConfigFile.Substring(6);
+            IniFile config_ini = new IniFile();
+            this._try = System.IO.File.Exists(this._sConfigFile);
+            if (this._try == true)
+            {
+                config_ini.Load(this._sConfigFile);
+                if (!mySysReporter.verifyConfig(config_ini))
+                {
+                    MessageBox.Show("Error:\n  La Configuración no es válida.\n  Contacte con el administador.\n\n" + mySysReporter.evaluedConfig());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Error:\n  No se puede encontrar configuración.\n  Contacte con el administrador.\n\n" + this._sConfigFile);
+                this._haveError = true;
+            }
+            //cargo configuración
+            // config_ini.GetSection("ALMACEN");
+            // MessageBox.Show("LEIDO >" + config_ini.GetKeyValue("INFOREST", "SERVIDOR"));
+
         }
 
-        public void TimerMethod(object state)
+        private void TimerMethod(object sender, EventArgs e)
         {
-            timerevent.Set();
-            //
+            this._timer.Enabled = false;
+            // si hay error cierra la aplicacion, sino lanzar login
+            if (this._haveError)
+            {
+                closeForm();
+            }
+            else
+            {
+                launchApp();
+            }
+        }
 
+        public void launchApp() 
+        {
+            //launch
+            this.Close();
+        }
+        public void closeForm()
+        {   
+            this.Close();            
+        }
+    }
+}
+
+/*  USEFULL CODE
             IniFile ini = new IniFile();
 
             ini.AddSection("TEST_SECTION").AddKey("Key1").Value = "Value1";
@@ -145,10 +194,4 @@ namespace SystemReporter
 
             //Save the INI
             ini.Save("C:\\temp\\test.ini");
-
-            //Launch login app
-            this.Close();
-        }
-        
-    }
-}
+            */
